@@ -1,0 +1,2445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AffiliateMath.xyz · Rizwan Ali — Earn With Knowledge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Inconsolata:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════
+   GOLDEN RATIO SYSTEM  φ = 1.618
+   Base unit: 1rem = 16px
+   φ scale: 10 · 16 · 26 · 42 · 68 · 110 · 178px
+   Columns: 61.8% / 38.2%  (golden split)
+   ═══════════════════════════════════════════════ */
+
+        :root {
+            --φ: 1.618;
+            --gold: #b8860b;
+            --gold-light: #d4a017;
+            --gold-pale: #fdf8ed;
+            --gold-rim: #e8d58a;
+            --ink: #1a1510;
+            --ink2: #2e2820;
+            --parchment: #faf7f0;
+            --aged: #f0ebe0;
+            --border: #ddd5c0;
+            --border2: #c8bfa8;
+            --muted: #7a7060;
+            --soft: #a09888;
+            --green: #1a6b3a;
+            --green-pale: #eef7f2;
+            --blue: #1a3d6b;
+            --blue-pale: #eef3fa;
+            --red: #8b1a1a;
+            --red-pale: #faeaea;
+
+            --display: 'Libre Baskerville', Georgia, serif;
+            --sans: 'DM Sans', system-ui, sans-serif;
+            --mono: 'Inconsolata', monospace;
+
+            /* Golden ratio spacing */
+            --sp1: 0.618rem;
+            --sp2: 1rem;
+            --sp3: 1.618rem;
+            --sp4: 2.618rem;
+            --sp5: 4.236rem;
+            --sp6: 6.854rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background: var(--parchment);
+            font-family: var(--sans);
+            color: var(--ink);
+            overflow-x: hidden;
+            line-height: 1.618;
+            /* φ */
+        }
+
+        /* ── PARCHMENT TEXTURE ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ══════════════════════════
+   TOP GOLDEN RULE RIBBON
+══════════════════════════ */
+        .top-ribbon {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), #e8c84a, var(--gold-light), #c8a820, var(--gold));
+        }
+
+        /* ══════════════════════════
+   NAV
+══════════════════════════ */
+        nav {
+            position: sticky;
+            top: 3px;
+            z-index: 90;
+            background: rgba(250, 247, 240, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 var(--sp4);
+            height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+        }
+
+        .logo-φ {
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid var(--gold);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-size: 1rem;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .logo-wordmark {
+            font-family: var(--display);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        .logo-wordmark span {
+            color: var(--gold);
+        }
+
+        .logo-sub {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--muted);
+            display: block;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-pills {
+            display: flex;
+            gap: 0.25rem;
+            list-style: none;
+        }
+
+        .nav-pills a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--muted);
+            text-decoration: none;
+            padding: 0.38rem 0.85rem;
+            border-radius: 100px;
+            transition: all 0.18s;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-pills a:hover {
+            color: var(--ink);
+            background: var(--aged);
+        }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--gold);
+            color: #fff;
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.48rem 1.1rem;
+            border-radius: 100px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.03em;
+            box-shadow: 0 2px 12px rgba(184, 134, 11, 0.28);
+        }
+
+        .nav-cta:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 18px rgba(184, 134, 11, 0.38);
+        }
+
+        /* ══════════════════════════
+   HERO — Golden Rectangle
+   61.8% left / 38.2% right
+══════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--sp6) var(--sp4) var(--sp5);
+            display: grid;
+            grid-template-columns: 61.8fr 38.2fr;
+            gap: var(--sp5);
+            align-items: center;
+            min-height: calc(100vh - 65px);
+        }
+
+        /* Golden spiral decoration */
+        .hero::after {
+            content: 'φ';
+            position: absolute;
+            top: 50%;
+            right: calc(38.2% + 2rem);
+            transform: translateY(-50%);
+            font-family: var(--mono);
+            font-size: 18rem;
+            font-weight: 300;
+            color: rgba(184, 134, 11, 0.04);
+            pointer-events: none;
+            z-index: 0;
+            line-height: 1;
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            border: 1px solid var(--gold-rim);
+            background: var(--gold-pale);
+            padding: 0.32rem 0.9rem;
+            border-radius: 100px;
+            margin-bottom: var(--sp3);
+        }
+
+        .eyebrow-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 2.2s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .eyebrow-text {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: var(--gold);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h1.hero-title {
+            font-family: var(--display);
+            font-size: clamp(2.8rem, 4.5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.025em;
+            color: var(--ink);
+            margin-bottom: var(--sp3);
+        }
+
+        h1.hero-title .name {
+            display: block;
+            font-style: italic;
+            font-weight: 400;
+            color: var(--gold);
+            margin-bottom: 0.15em;
+            font-size: 0.7em;
+        }
+
+        h1.hero-title .headline {
+            display: block;
+        }
+
+        h1.hero-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 520px;
+            margin-bottom: var(--sp4);
+        }
+
+        .hero-desc strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        /* φ-ratio income display */
+        .phi-income {
+            display: grid;
+            grid-template-columns: 61.8fr 38.2fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: var(--sp4);
+        }
+
+        .phi-income-cell {
+            background: var(--parchment);
+            padding: var(--sp3);
+        }
+
+        .phi-income-cell.accent {
+            background: var(--gold-pale);
+        }
+
+        .pic-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--soft);
+            margin-bottom: 0.4rem;
+        }
+
+        .pic-val {
+            font-family: var(--display);
+            font-size: 2rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.2rem;
+        }
+
+        .pic-note {
+            font-size: 0.72rem;
+            color: var(--soft);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--ink);
+            color: var(--gold-pale);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.85rem 1.8rem;
+            border-radius: 7px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.02em;
+            box-shadow: 0 4px 16px rgba(26, 21, 16, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--ink2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(26, 21, 16, 0.28);
+        }
+
+        .btn-gold {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gold);
+            color: #fff;
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.85rem 1.8rem;
+            border-radius: 7px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(184, 134, 11, 0.3);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border2);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.85rem 1.8rem;
+            border-radius: 7px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        /* ── HERO RIGHT: Profile + AI Calc ── */
+        .hero-right {
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-card {
+            background: var(--aged);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-banner {
+            height: 80px;
+            background: linear-gradient(135deg, #1a1510, #2e2820);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 1.2rem;
+        }
+
+        .profile-banner-φ {
+            font-family: var(--mono);
+            font-size: 3rem;
+            color: rgba(184, 134, 11, 0.25);
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .profile-body {
+            padding: 0 1.4rem 1.4rem;
+        }
+
+        .profile-avatar-wrap {
+            margin-top: -28px;
+            margin-bottom: 0.8rem;
+        }
+
+        .profile-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 3px solid var(--parchment);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .profile-name {
+            font-family: var(--display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.15rem;
+        }
+
+        .profile-title {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .profile-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .pbadge {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+        }
+
+        .pbadge.g {
+            background: var(--green-pale);
+            color: var(--green);
+            border: 1px solid #b8dfc8;
+        }
+
+        .pbadge.b {
+            background: var(--blue-pale);
+            color: var(--blue);
+            border: 1px solid #b8ccdc;
+        }
+
+        .pbadge.a {
+            background: var(--gold-pale);
+            color: var(--gold);
+            border: 1px solid var(--gold-rim);
+        }
+
+        /* AI Income Calc inside card */
+        .ai-calc {
+            background: var(--parchment);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 1rem;
+        }
+
+        .ac-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            font-weight: 400;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--soft);
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ac-label::before {
+            content: 'φ';
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
+
+        .ac-select {
+            width: 100%;
+            background: var(--aged);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.55rem 0.8rem;
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            outline: none;
+            cursor: pointer;
+            margin-bottom: 0.6rem;
+            transition: border-color 0.18s;
+        }
+
+        .ac-select:focus {
+            border-color: var(--gold);
+        }
+
+        .ac-select option {
+            background: var(--parchment);
+        }
+
+        .ac-btn {
+            width: 100%;
+            background: var(--gold);
+            border: none;
+            border-radius: 6px;
+            padding: 0.58rem;
+            color: #fff;
+            font-family: var(--sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s;
+            margin-bottom: 0.7rem;
+        }
+
+        .ac-btn:hover {
+            background: var(--gold-light);
+        }
+
+        .ac-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .ac-output {
+            background: var(--aged);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.8rem;
+            font-size: 0.78rem;
+            line-height: 1.75;
+            color: var(--ink2);
+            min-height: 72px;
+            font-family: var(--sans);
+        }
+
+        .ac-thinking {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: var(--soft);
+            font-family: var(--mono);
+            font-size: 0.65rem;
+        }
+
+        .ac-thinking.on {
+            display: flex;
+        }
+
+        .td {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: tdb 1.1s infinite;
+        }
+
+        .td:nth-child(2) {
+            animation-delay: 0.18s;
+        }
+
+        .td:nth-child(3) {
+            animation-delay: 0.36s;
+        }
+
+        @keyframes tdb {
+
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ══════════════════════════
+   GOLDEN RATIO DIVIDER
+══════════════════════════ */
+        .φ-divider {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--sp4);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--soft);
+        }
+
+        .φ-divider::before,
+        .φ-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .φ-glyph {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* ══════════════════════════
+   SECTION WRAPPER
+══════════════════════════ */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--sp5) var(--sp4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stag {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            font-weight: 400;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .stag::before {
+            content: 'φ';
+            color: var(--border2);
+        }
+
+        h2.sh {
+            font-family: var(--display);
+            font-size: clamp(1.9rem, 3.5vw, 3rem);
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+        }
+
+        h2.sh em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .sd {
+            font-size: 0.98rem;
+            color: var(--muted);
+            line-height: 1.75;
+            max-width: 580px;
+            margin-bottom: var(--sp4);
+        }
+
+        /* ══════════════════════════
+   PLATFORMS — 4 cards
+   Using φ proportions
+══════════════════════════ */
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .platform-card {
+            background: var(--parchment);
+            padding: var(--sp4);
+            transition: all 0.22s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .platform-card:hover {
+            background: var(--gold-pale);
+        }
+
+        .pc-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .pc-name {
+            font-family: var(--display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        .pc-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.65;
+            flex: 1;
+        }
+
+        .pc-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .pc-earn {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--green);
+            font-weight: 400;
+            letter-spacing: 0.03em;
+        }
+
+        .apply-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: var(--ink);
+            color: var(--gold-pale);
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.18s;
+            letter-spacing: 0.04em;
+        }
+
+        .apply-btn:hover {
+            background: var(--gold);
+            color: #fff;
+        }
+
+        /* Preply featured */
+        .platform-card.featured {
+            background: var(--gold-pale);
+            border-right: none;
+        }
+
+        .platform-card.featured .apply-btn {
+            background: var(--gold);
+            color: #fff;
+        }
+
+        .platform-card.featured .apply-btn:hover {
+            background: var(--gold-light);
+        }
+
+        /* ══════════════════════════
+   GOLDEN RATIO INCOME ROAD
+══════════════════════════ */
+        .income-road {
+            background: var(--ink);
+            padding: var(--sp5) var(--sp4);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .income-road::before {
+            content: '1.618';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--mono);
+            font-size: 20rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .ir-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ir-title {
+            font-family: var(--display);
+            font-style: italic;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.4rem;
+            line-height: 1.05;
+        }
+
+        .ir-title span {
+            color: var(--gold-light);
+        }
+
+        .ir-sub {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.38);
+            line-height: 1.7;
+            max-width: 500px;
+            margin-bottom: var(--sp4);
+        }
+
+        .road-grid {
+            display: grid;
+            /* 61.8% | 38.2% split per golden ratio, then subdivide */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: var(--sp4);
+        }
+
+        .road-phase {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem 1.3rem;
+        }
+
+        .rp-num {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .rp-period {
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .rp-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .rp-income {
+            font-family: var(--display);
+            font-size: 1.6rem;
+            font-style: italic;
+            color: var(--gold-light);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .rp-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .rp-list li {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.45);
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .rp-list li::before {
+            content: '→';
+            color: var(--gold-light);
+            flex-shrink: 0;
+        }
+
+        /* φ calculator row */
+        .phi-calc-row {
+            background: rgba(184, 134, 11, 0.1);
+            border: 1px solid rgba(184, 134, 11, 0.25);
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .pcr-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 0.5rem;
+        }
+
+        .pcr-input-row {
+            display: flex;
+            gap: 0.6rem;
+            align-items: flex-end;
+        }
+
+        .pcr-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 7px;
+            padding: 0.65rem 0.9rem;
+            color: #fff;
+            font-family: var(--sans);
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .pcr-input:focus {
+            border-color: var(--gold-light);
+        }
+
+        .pcr-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .pcr-btn {
+            background: var(--gold-light);
+            border: none;
+            border-radius: 7px;
+            padding: 0.65rem 1.2rem;
+            color: #1a1510;
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s;
+            white-space: nowrap;
+        }
+
+        .pcr-btn:hover {
+            background: #e8d050;
+        }
+
+        .pcr-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .pcr-output {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 7px;
+            padding: 1rem;
+            font-size: 0.82rem;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.7);
+            min-height: 80px;
+            white-space: pre-wrap;
+        }
+
+        .pcr-thinking {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            color: rgba(255, 255, 255, 0.3);
+            font-family: var(--mono);
+            font-size: 0.65rem;
+        }
+
+        .pcr-thinking.on {
+            display: flex;
+        }
+
+        /* ══════════════════════════
+   AI TUTOR
+══════════════════════════ */
+        .tutor-wrap {
+            background: var(--aged);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 6px 32px rgba(0, 0, 0, 0.07);
+        }
+
+        .tutor-bar {
+            background: var(--ink);
+            padding: 0.9rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tutor-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 7px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--ink);
+        }
+
+        .tutor-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.88rem;
+        }
+
+        .tutor-sub {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-top: 1px;
+        }
+
+        .tutor-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .tutor-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 2s infinite;
+        }
+
+        .tutor-body {
+            padding: 1.5rem;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .chip {
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            font-weight: 500;
+            background: var(--parchment);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 0.38rem 0.85rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.18s;
+        }
+
+        .chip:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: var(--gold-pale);
+        }
+
+        .level-row {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .lbtn {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 0.42rem;
+            font-family: var(--sans);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--soft);
+            cursor: pointer;
+            transition: all 0.18s;
+            text-align: center;
+        }
+
+        .lbtn.on,
+        .lbtn:hover {
+            background: var(--gold-pale);
+            border-color: var(--gold-rim);
+            color: var(--gold);
+        }
+
+        .tutor-input-row {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 1rem;
+        }
+
+        .tutor-input {
+            flex: 1;
+            background: var(--parchment);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .tutor-input:focus {
+            border-color: var(--gold);
+        }
+
+        .tutor-input::placeholder {
+            color: var(--soft);
+        }
+
+        .tutor-send {
+            background: var(--gold);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.4rem;
+            color: #fff;
+            font-family: var(--sans);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s;
+            white-space: nowrap;
+        }
+
+        .tutor-send:hover {
+            background: var(--gold-light);
+        }
+
+        .tutor-send:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .tutor-output {
+            background: var(--parchment);
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            padding: 1.2rem;
+            min-height: 130px;
+            font-size: 0.88rem;
+            line-height: 1.8;
+            color: var(--ink2);
+            white-space: pre-wrap;
+        }
+
+        /* ══════════════════════════
+   ENROLL SECTION
+══════════════════════════ */
+        .enroll-section {
+            background: var(--ink2);
+            padding: var(--sp5) var(--sp4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .enroll-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 61.8fr 38.2fr;
+            gap: var(--sp4);
+            align-items: start;
+        }
+
+        /* Services list */
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .service-row {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 9px;
+            padding: 1.1rem 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            transition: all 0.2s;
+        }
+
+        .service-row:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateX(4px);
+        }
+
+        .sr-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.15rem;
+        }
+
+        .sr-desc {
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.35);
+            line-height: 1.5;
+        }
+
+        .sr-price {
+            font-family: var(--mono);
+            font-size: 1rem;
+            color: var(--gold-light);
+            white-space: nowrap;
+            text-align: right;
+        }
+
+        .sr-unit {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.3);
+            display: block;
+        }
+
+        /* Hire form */
+        .hire-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .hb-title {
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .hb-sub {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .fg {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .fg label {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .fg input,
+        .fg select,
+        .fg textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 7px;
+            padding: 0.65rem 0.9rem;
+            color: #fff;
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-top: 0.3rem;
+        }
+
+        .fg input:focus,
+        .fg select:focus,
+        .fg textarea:focus {
+            border-color: var(--gold-light);
+        }
+
+        .fg input::placeholder,
+        .fg textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .fg select option {
+            background: #1a1510;
+        }
+
+        .fg textarea {
+            resize: vertical;
+            min-height: 75px;
+        }
+
+        .fg-submit {
+            width: 100%;
+            background: var(--gold-light);
+            border: none;
+            border-radius: 7px;
+            padding: 0.85rem;
+            color: #1a1510;
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.3rem;
+        }
+
+        .fg-submit:hover {
+            background: #e8d050;
+            transform: translateY(-2px);
+        }
+
+        .fg-note {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            color: rgba(255, 255, 255, 0.2);
+            text-align: center;
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .fs-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .fs-title {
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.4rem;
+        }
+
+        .fs-msg {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════
+   SKILLS & PORTFOLIO STRIP
+══════════════════════════ */
+        .skills-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-cell {
+            background: var(--parchment);
+            padding: 1.2rem 1rem;
+            text-align: center;
+        }
+
+        .skill-pct {
+            font-family: var(--display);
+            font-size: 1.8rem;
+            font-style: italic;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .skill-name {
+            font-size: 0.72rem;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+        }
+
+        .skill-bar {
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 0.6rem;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            border-radius: 2px;
+        }
+
+        /* ══════════════════════════
+   FOOTER
+══════════════════════════ */
+        footer {
+            position: relative;
+            z-index: 1;
+            background: var(--ink);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: var(--sp4);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 61.8fr 38.2fr;
+            gap: var(--sp4);
+            align-items: start;
+        }
+
+        .footer-brand {
+            font-family: var(--display);
+            font-style: italic;
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .footer-brand span {
+            color: var(--gold-light);
+        }
+
+        .footer-domain {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.25);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-desc {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.3);
+            line-height: 1.7;
+        }
+
+        .footer-links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--sp3);
+        }
+
+        .fl-label {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.25);
+            margin-bottom: 0.7rem;
+            font-weight: 400;
+        }
+
+        .fl-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .fl-list a {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.35);
+            text-decoration: none;
+            transition: color 0.18s;
+        }
+
+        .fl-list a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: var(--sp3) auto 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: var(--sp2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .footer-bottom p {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.22);
+        }
+
+        .footer-bottom span {
+            color: var(--gold-light);
+        }
+
+        /* ══════════════════════════
+   FLOATING HIRE BUTTON
+══════════════════════════ */
+        .float-hire {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 80;
+            background: var(--gold);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 0.72rem 1.3rem;
+            font-family: var(--sans);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(184, 134, 11, 0.4);
+            transition: all 0.35s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .float-hire.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .float-hire:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+        }
+
+        /* ══════════════════════════
+   FADE ANIM
+══════════════════════════ */
+        .fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade[data-d="1"] {
+            transition-delay: 0.1s;
+        }
+
+        .fade[data-d="2"] {
+            transition-delay: 0.2s;
+        }
+
+        .fade[data-d="3"] {
+            transition-delay: 0.3s;
+        }
+
+        @media(max-width:960px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+                padding: 4rem 1.5rem;
+            }
+
+            .platforms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .road-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .enroll-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-row {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .phi-calc-row {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .nav-pills {
+                display: none;
+            }
+
+            .section {
+                padding: 3.5rem 1.5rem;
+            }
+
+            .income-road {
+                padding: 3.5rem 1.5rem;
+            }
+
+            .enroll-section {
+                padding: 3.5rem 1.5rem;
+            }
+
+            footer {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        @media(max-width:600px) {
+            .road-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .phi-income {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-ribbon"></div>
+
+    <!-- ═══ NAV ═══ -->
+    <nav>
+        <a href="https://affiliatemath.xyz" target="_blank" class="nav-logo">
+            <div class="logo-φ">φ</div>
+            <div>
+                <div class="logo-wordmark">Affiliate<span>Math</span></div>
+                <div class="logo-sub">affiliatemath.xyz · Rizwan Ali</div>
+            </div>
+        </a>
+        <ul class="nav-pills">
+            <li><a href="#platforms">Platforms</a></li>
+            <li><a href="#tutor">AI Tutor</a></li>
+            <li><a href="#roadmap">Roadmap</a></li>
+            <li><a href="#hire">Hire Me</a></li>
+        </ul>
+        <a href="#hire" class="nav-cta">💼 Work With Me</a>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section style="position:relative;z-index:1;">
+        <div class="hero">
+            <div class="hero-left fade">
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    <span class="eyebrow-text">φ Golden Ratio · Earn Online · affiliatemath.xyz</span>
+                </div>
+
+                <h1 class="hero-title">
+                    <span class="name">Rizwan Ali</span>
+                    <span class="headline">Teach, Build &<br><em>Earn Online</em></span>
+                </h1>
+
+                <p class="hero-desc">
+                    A <strong>Graphic Designer, Python Developer & Data Science Instructor</strong> who earns from
+                    online tutoring and freelancing — applying the <strong>Golden Ratio (φ = 1.618)</strong> to every
+                    income decision: multiply your skills, your clients, and your revenue.
+                </p>
+
+                <!-- φ Income split display -->
+                <div class="phi-income">
+                    <div class="phi-income-cell accent">
+                        <div class="pic-label">φ Primary Income (61.8%)</div>
+                        <div class="pic-val">Teaching</div>
+                        <div class="pic-note">Online tutoring · 1:1 sessions · LMS courses</div>
+                    </div>
+                    <div class="phi-income-cell">
+                        <div class="pic-label">φ Secondary (38.2%)</div>
+                        <div class="pic-val">Freelance</div>
+                        <div class="pic-note">Projects · Design · APIs · Dev work</div>
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#platforms" class="btn-gold">🎓 Apply as Tutor</a>
+                    <a href="#tutor" class="btn-primary">🤖 Ask AI Tutor</a>
+                    <a href="./pages/syllabus.html" class="btn-outline">📩 Syllabus</a>
+                </div>
+            </div>
+
+            <!-- PROFILE + AI CALC -->
+            <div class="hero-right fade" data-d="2">
+                <div class="profile-card">
+                    <div class="profile-banner">
+                        <div class="profile-banner-φ">φ</div>
+                    </div>
+                    <div class="profile-body">
+                        <div class="profile-avatar-wrap">
+                            <div class="profile-avatar">RA</div>
+                        </div>
+                        <div class="profile-name">Rizwan Ali</div>
+                        <div class="profile-title">Graphic Designer · Python Developer · Data Science Instructor</div>
+                        <div class="profile-badges">
+                            <span class="pbadge g">Online Tutor</span>
+                            <span class="pbadge b">FastAPI Dev</span>
+                            <span class="pbadge a">Data Science</span>
+                            <span class="pbadge g">Graphic Design</span>
+                            <span class="pbadge b">UI/UX</span>
+                        </div>
+                        <div class="ai-calc">
+                            <div class="ac-label">φ Rate Advisor · AI Powered</div>
+                            <select class="ac-select" id="rateService">
+                                <option value="online tutoring for data science or math students">Data Science Tutoring
+                                </option>
+                                <option value="Python development and automation freelance project">Python Dev Project
+                                </option>
+                                <option value="graphic design and UI/UX freelance work">Graphic Design Gig</option>
+                                <option value="FastAPI backend development freelance project">FastAPI Development
+                                </option>
+                                <option value="online teaching on Preply or Wyzant as a tutor">Teaching on Preply /
+                                    Wyzant</option>
+                                <option value="creating and selling an online data science course">Sell an Online Course
+                                </option>
+                            </select>
+                            <button class="ac-btn" id="rateBtn" onclick="getRateAdvice()">φ Get Golden Ratio
+                                Pricing</button>
+                            <div class="ac-thinking" id="acThinking">
+                                <span class="td"></span><span class="td"></span><span class="td"></span>
+                                <span style="margin-left:5px">Calculating φ-optimised rates…</span>
+                            </div>
+                            <div class="ac-output" id="acOutput" style="color:var(--soft);font-style:italic;">
+                                Select a service and click above for AI-powered pricing advice using Golden Ratio
+                                principles.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="φ-divider fade"><span class="φ-glyph">φ = 1.618 · The Golden Ratio of Earning</span></div>
+
+    <!-- ═══ SKILLS ═══ -->
+    <section class="section fade" style="padding-bottom:0;">
+        <div class="stag">Expertise</div>
+        <h2 class="sh">Skills Built on <em>Mastery</em></h2>
+        <div class="sd">Every skill trained to professional depth — the foundation of a credible tutoring and freelance
+            practice.</div>
+        <div class="skills-row">
+            <div class="skill-cell">
+                <div class="skill-pct">95%</div>
+                <div class="skill-name">Python & Automation</div>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width:95%"></div>
+                </div>
+            </div>
+            <div class="skill-cell">
+                <div class="skill-pct">90%</div>
+                <div class="skill-name">HTML / CSS / JS</div>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width:90%"></div>
+                </div>
+            </div>
+            <div class="skill-cell">
+                <div class="skill-pct">90%</div>
+                <div class="skill-name">Graphic Design & UI/UX</div>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width:90%"></div>
+                </div>
+            </div>
+            <div class="skill-cell">
+                <div class="skill-pct">85%</div>
+                <div class="skill-name">FastAPI Development</div>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width:85%"></div>
+                </div>
+            </div>
+            <div class="skill-cell">
+                <div class="skill-pct">95%</div>
+                <div class="skill-name">Problem Solving</div>
+                <div class="skill-bar">
+                    <div class="skill-fill" style="width:95%"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PLATFORMS ═══ -->
+    <section class="section fade" id="platforms">
+        <div class="stag">Apply as a Tutor</div>
+        <h2 class="sh">Open the Platform &<br><em>Submit Your Profile</em></h2>
+        <p class="sd">These four platforms have the highest demand for data science, math, and technology tutors. Each
+            link opens the official application page directly.</p>
+
+        <div class="platforms-grid">
+
+            <div class="platform-card">
+                <div class="pc-icon">📐</div>
+                <div class="pc-name">Wyzant</div>
+                <div class="pc-desc">One-to-one tutoring platform for Math, Science and Technology subjects. Set your
+                    own hourly rate and teach students at your schedule. Strong demand for Python and data science
+                    instructors.</div>
+                <div class="pc-meta">
+                    <div class="pc-earn">💰 $40–$100/hr potential</div>
+                    <a class="apply-btn" href="https://www.wyzant.com" target="_blank">Apply Now ↗</a>
+                </div>
+            </div>
+
+            <div class="platform-card featured">
+                <div class="pc-icon">🌍</div>
+                <div class="pc-name">Preply</div>
+                <div class="pc-desc">Global teaching marketplace with online students worldwide. Excellent for data
+                    science, Python, and math tutoring. Students book 1:1 video sessions — you set your schedule and
+                    rate from any country.</div>
+                <div class="pc-meta">
+                    <div class="pc-earn">💰 $25–$80/hr · Featured ⭐</div>
+                    <a class="apply-btn" href="https://preply.com" target="_blank">Apply Now ↗</a>
+                </div>
+            </div>
+
+            <div class="platform-card">
+                <div class="pc-icon">🏫</div>
+                <div class="pc-name">Outschool</div>
+                <div class="pc-desc">Teach engaging online classes to school-age learners in live group sessions.
+                    Perfect for introductory Python, math, and coding classes. Set your own price per student per class.
+                </div>
+                <div class="pc-meta">
+                    <div class="pc-earn">💰 $10–$40/student/class</div>
+                    <a class="apply-btn" href="https://outschool.com" target="_blank">Apply Now ↗</a>
+                </div>
+            </div>
+
+            <div class="platform-card">
+                <div class="pc-icon">🔬</div>
+                <div class="pc-name">Tutor.com</div>
+                <div class="pc-desc">Professional online tutoring opportunities across STEM disciplines. High-volume
+                    platform with consistent student flow. Paid per session with reliable income for qualified tutors in
+                    math and data science.</div>
+                <div class="pc-meta">
+                    <div class="pc-earn">💰 $13–$28/hr · Consistent</div>
+                    <a class="apply-btn" href="https://www.tutor.com" target="_blank">Apply Now ↗</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DIVIDER -->
+    <div class="φ-divider fade"><span class="φ-glyph">φ Income Roadmap · Zero to $5,000/month</span></div>
+
+    <!-- ═══ GOLDEN RATIO INCOME ROADMAP ═══ -->
+    <div class="income-road fade" id="roadmap">
+        <div class="ir-inner">
+            <div class="stag" style="color:var(--gold-light);">φ Freelance Roadmap</div>
+            <h2 class="ir-title">From Zero to <span>$5,000/month</span><br>Using the Golden Ratio</h2>
+            <p class="ir-sub">Apply φ = 1.618 to every income decision: 61.8% from primary teaching, 38.2% from
+                freelance projects. Each phase multiplies the last by φ.</p>
+
+            <div class="road-grid">
+                <div class="road-phase">
+                    <div class="rp-num">Phase 01</div>
+                    <div class="rp-period">Month 1–2</div>
+                    <div class="rp-title">φ Foundation</div>
+                    <div class="rp-income">$200–$600</div>
+                    <ul class="rp-list">
+                        <li>Apply on Preply & Wyzant</li>
+                        <li>2–3 free trial lessons</li>
+                        <li>Build your profile + reviews</li>
+                        <li>Post on LinkedIn weekly</li>
+                        <li>Share affiliatemath.xyz portfolio</li>
+                    </ul>
+                </div>
+                <div class="road-phase">
+                    <div class="rp-num">Phase 02</div>
+                    <div class="rp-period">Month 3–4</div>
+                    <div class="rp-title">φ Growth × 1.618</div>
+                    <div class="rp-income">$800–$1,500</div>
+                    <ul class="rp-list">
+                        <li>Raise rate to $40–60/hr</li>
+                        <li>Take Upwork/Fiverr projects</li>
+                        <li>Sell a 10-session bundle</li>
+                        <li>Outreach to corporate HR</li>
+                        <li>Design gigs alongside teaching</li>
+                    </ul>
+                </div>
+                <div class="road-phase">
+                    <div class="rp-num">Phase 03</div>
+                    <div class="rp-period">Month 5–8</div>
+                    <div class="rp-title">φ Multiply × φ²</div>
+                    <div class="rp-income">$2,000–$3,500</div>
+                    <ul class="rp-list">
+                        <li>Corporate workshop ($500+)</li>
+                        <li>Record Udemy data science course</li>
+                        <li>Monthly retainer consulting</li>
+                        <li>FastAPI projects for clients</li>
+                        <li>Passive income begins</li>
+                    </ul>
+                </div>
+                <div class="road-phase">
+                    <div class="rp-num">Phase 04</div>
+                    <div class="rp-period">Month 9+</div>
+                    <div class="rp-title">φ Premium × φ³</div>
+                    <div class="rp-income">$4,000–$8,000+</div>
+                    <ul class="rp-list">
+                        <li>Charge $100–150/hr private</li>
+                        <li>Corporate training $1000/day</li>
+                        <li>Course royalties passive</li>
+                        <li>Build waitlist — stop chasing</li>
+                        <li>Speak at webinars & events</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- φ Multiplier Calculator -->
+            <div class="phi-calc-row">
+                <div>
+                    <div class="pcr-label">φ Income Multiplier — Ask AI: How do I earn more?</div>
+                    <div class="pcr-input-row">
+                        <input class="pcr-input" id="calcInput"
+                            placeholder="e.g. I earn $300/month tutoring. How do I reach $1500?" />
+                        <button class="pcr-btn" id="calcBtn" onclick="runCalc()">φ Advise Me</button>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;margin-top:0.5rem;">
+                        <div class="pcr-thinking" id="pcrThinking">
+                            <span class="td"></span><span class="td"></span><span class="td"></span>
+                            <span style="margin-left:5px">Applying golden ratio strategy…</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pcr-output" id="calcOutput" style="color:rgba(255,255,255,0.3);font-style:italic;">
+                    Describe your current income situation and receive a φ-based strategy to grow it.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ AI TUTOR ═══ -->
+    <section class="section fade" id="tutor">
+        <div class="stag">Powered by Claude AI</div>
+        <h2 class="sh">Your Personal <em>AI Tutor</em></h2>
+        <p class="sd">Ask any data science, Python, math, or freelancing question and receive a master-level explanation
+            from Rizwan's AI Tutor — available 24/7 at affiliatemath.xyz.</p>
+
+        <div class="tutor-wrap">
+            <div class="tutor-bar">
+                <div class="tutor-icon">φ</div>
+                <div>
+                    <div class="tutor-name">AffiliateMath AI Tutor</div>
+                    <div class="tutor-sub">by Rizwan Ali · affiliatemath.xyz · Powered by Claude</div>
+                </div>
+                <div class="tutor-status">Online</div>
+            </div>
+            <div class="tutor-body">
+                <div class="chips">
+                    <button class="chip"
+                        onclick="askTutor('Explain gradient descent with a simple real example')">Gradient
+                        Descent</button>
+                    <button class="chip"
+                        onclick="askTutor('What is the Golden Ratio and how does it apply to earning online?')">φ &amp;
+                        Earning</button>
+                    <button class="chip"
+                        onclick="askTutor('How do I start freelancing as a Python developer with no experience?')">Start
+                        Freelancing</button>
+                    <button class="chip"
+                        onclick="askTutor('What is the math behind neural networks and backpropagation?')">Neural
+                        Networks</button>
+                    <button class="chip"
+                        onclick="askTutor('How do I write a winning Upwork proposal as a data science tutor?')">Upwork
+                        Proposal</button>
+                    <button class="chip"
+                        onclick="askTutor('How do I set my tutoring rate using the Golden Ratio principle?')">Set Tutor
+                        Rate</button>
+                    <button class="chip" onclick="askTutor('Explain Bayes theorem with an intuitive example')">Bayes
+                        Theorem</button>
+                    <button class="chip"
+                        onclick="askTutor('How do I build a FastAPI project that impresses clients?')">FastAPI
+                        Tips</button>
+                </div>
+
+                <div class="level-row">
+                    <button class="lbtn on" id="lv-beginner" onclick="setLv('Beginner')">🟢 Beginner</button>
+                    <button class="lbtn" id="lv-intermediate" onclick="setLv('Intermediate')">🟡 Intermediate</button>
+                    <button class="lbtn" id="lv-advanced" onclick="setLv('Advanced')">🔴 Advanced</button>
+                </div>
+
+                <div class="tutor-input-row">
+                    <input class="tutor-input" id="tutorInput"
+                        placeholder="Ask anything — data science, Python, math, freelancing, earning online…" />
+                    <button class="tutor-send" id="tutorBtn" onclick="askTutor()">Ask →</button>
+                </div>
+
+                <div class="tutor-output" id="tutorOutput">
+                    <div class="ac-thinking" id="tutorThinking">
+                        <span class="td"></span><span class="td"></span><span class="td"></span>
+                        <span style="margin-left:5px">AffiliateMath AI is preparing your answer…</span>
+                    </div>
+                    <span id="tutorText" style="color:var(--soft);font-style:italic;">Select a topic above or type your
+                        own question. Expert-level answers appear here, calibrated to your level.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ HIRE ME ═══ -->
+    <div class="enroll-section fade" id="hire">
+        <div class="enroll-inner">
+            <div>
+                <div class="stag" style="color:var(--gold-light);">Freelance Services</div>
+                <h2 class="sh" style="color:#fff;margin-bottom:1rem;">Hire <em style="color:var(--gold-light);">Rizwan
+                        Ali</em><br>Directly</h2>
+                <p class="sd" style="color:rgba(255,255,255,0.4);margin-bottom:1.5rem;">Beyond the LMS — book private
+                    sessions, commission Python or design projects, or bring expert training to your team. National &
+                    international clients welcome.</p>
+
+                <div class="services-list">
+                    <div class="service-row">
+                        <div>
+                            <div class="sr-name">🎓 Private 1:1 Tutoring</div>
+                            <div class="sr-desc">Data science, Python, math · Live Zoom · Custom roadmap</div>
+                        </div>
+                        <div class="sr-price">$50/hr<span class="sr-unit">FROM</span></div>
+                    </div>
+                    <div class="service-row">
+                        <div>
+                            <div class="sr-name">🐍 Python / FastAPI Development</div>
+                            <div class="sr-desc">Automation, APIs, web apps · Clean documented code</div>
+                        </div>
+                        <div class="sr-price">$200+<span class="sr-unit">PER PROJECT</span></div>
+                    </div>
+                    <div class="service-row">
+                        <div>
+                            <div class="sr-name">🎨 Graphic Design & UI/UX</div>
+                            <div class="sr-desc">Logos, web design, digital assets · Canva or Figma</div>
+                        </div>
+                        <div class="sr-price">$80+<span class="sr-unit">PER PROJECT</span></div>
+                    </div>
+                    <div class="service-row">
+                        <div>
+                            <div class="sr-name">🏢 Corporate Training Workshop</div>
+                            <div class="sr-desc">Python, data literacy, AI tools · For teams of 5–50</div>
+                        </div>
+                        <div class="sr-price">$500/day<span class="sr-unit">FROM</span></div>
+                    </div>
+                    <div class="service-row">
+                        <div>
+                            <div class="sr-name">📹 Course Creation</div>
+                            <div class="sr-desc">Script, record, deliver for Udemy / your platform</div>
+                        </div>
+                        <div class="sr-price">$800+<span class="sr-unit">FULL COURSE</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hire-box">
+                <div class="hb-title">Send Your Request</div>
+                <div class="hb-sub">I review every request personally and respond within 24 hours with a plan and quote.
+                </div>
+
+                <div class="fg" id="hireForm">
+                    <div>
+                        <label>Full Name *</label>
+                        <input type="text" id="hf-name" placeholder="Your full name" />
+                    </div>
+                    <div>
+                        <label>Email Address *</label>
+                        <input type="email" id="hf-email" placeholder="your@email.com" />
+                    </div>
+                    <div>
+                        <label>Country</label>
+                        <input type="text" id="hf-country" placeholder="e.g. Pakistan, UK, USA…" />
+                    </div>
+                    <div>
+                        <label>Service Needed *</label>
+                        <select id="hf-service">
+                            <option value="">Choose service…</option>
+                            <option>Private 1:1 Tutoring</option>
+                            <option>Python / FastAPI Development</option>
+                            <option>Graphic Design & UI/UX</option>
+                            <option>Corporate Training Workshop</option>
+                            <option>Course Creation</option>
+                            <option>Data Science Consulting</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Your Message *</label>
+                        <textarea id="hf-msg" placeholder="Describe your need, goal, timeline, budget…"></textarea>
+                    </div>
+                    <button class="fg-submit" onclick="submitHire()">✉ Send Request · 24hr Response</button>
+                    <p class="fg-note">🔒 Private & confidential. Direct response from Rizwan Ali.</p>
+                </div>
+
+                <div class="form-success" id="hireSuccess">
+                    <div class="fs-icon">✅</div>
+                    <div class="fs-title">Request Received!</div>
+                    <p class="fs-msg">Thank you. Rizwan will personally review your request and respond within 24 hours
+                        with a tailored plan and quote.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <div class="footer-brand">Affiliate<span>Math</span></div>
+                <div class="footer-domain">affiliatemath.xyz · by Rizwan Ali</div>
+                <div class="footer-desc">Graphic Designer, Python Developer & Data Science Instructor. Teaching,
+                    building, and earning online using the Golden Ratio approach to income — 61.8% mastery, 38.2%
+                    action.</div>
+            </div>
+            <div class="footer-links-grid">
+                <div>
+                    <div class="fl-label">Platforms</div>
+                    <ul class="fl-list">
+                        <li><a href="https://www.wyzant.com" target="_blank">Wyzant →</a></li>
+                        <li><a href="https://preply.com" target="_blank">Preply →</a></li>
+                        <li><a href="https://outschool.com" target="_blank">Outschool →</a></li>
+                        <li><a href="https://www.tutor.com" target="_blank">Tutor.com →</a></li>
+                        <li><a href="https://www.upwork.com" target="_blank">Upwork →</a></li>
+                        <li><a href="https://www.fiverr.com" target="_blank">Fiverr →</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="fl-label">Connect</div>
+                    <ul class="fl-list">
+                        <li><a href="https://www.linkedin.com/in/rizwan-ali-389660156/" target="_blank">LinkedIn →</a>
+                        </li>
+                        <li><a href="https://github.com/KhanRiyazi" target="_blank">GitHub →</a></li>
+                        <li><a href="https://www.youtube.com/@ThisOne-007" target="_blank">YouTube →</a></li>
+                        <li><a href="https://x.com/RizwanA96852028" target="_blank">X / Twitter →</a></li>
+                        <li><a href="https://www.behance.net/rizwanali3251" target="_blank">Behance →</a></li>
+                        <li><a href="https://dribbble.com/khanRiyazi" target="_blank">Dribbble →</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 <span>Rizwan Ali</span> · affiliatemath.xyz · All rights reserved</p>
+            <p>φ = <span>1.618</span> · The Golden Ratio of Learning & Earning</p>
+        </div>
+    </footer>
+
+    <!-- FLOATING HIRE -->
+    <a href="#hire" class="float-hire" id="floatHire">💼 Hire Rizwan</a>
+
+    <script>
+        const API = "https://api.anthropic.com/v1/messages";
+
+        async function callClaude(system, user) {
+            try {
+                const res = await fetch(API, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        model: "claude-sonnet-4-20250514",
+                        max_tokens: 1000,
+                        system,
+                        messages: [{ role: "user", content: user }]
+                    })
+                });
+                const d = await res.json();
+                return d.content?.map(b => b.text || "").join("") || "Connection error. Please try again.";
+            } catch (e) {
+                return "Connection error. Please try again in a moment.";
+            }
+        }
+
+        /* ── TUTOR SYSTEM ── */
+        const TUTOR_SYS = `You are the AffiliateMath.xyz AI Tutor — built by Rizwan Ali, a Graphic Designer, Python Developer, and Data Science Instructor at affiliatemath.xyz.
+
+Your expertise: mathematics, statistics, Python, FastAPI, SQL, data science, machine learning, deep learning, generative AI, graphic design, UI/UX, and freelancing strategy for online income.
+
+Teaching style:
+- Calibrate to the student's level: Beginner = plain language + analogies; Intermediate = concepts + code snippets; Advanced = deep math + implementation
+- Clear, warm, practical — like a private tutor who wants genuine understanding
+- Use short Python snippets when they help
+- Always give a real-world example
+- Structure: quick intro → core explanation → example → key takeaway
+- Length: 200–350 words. Not too long.
+- Write in clean paragraphs — minimal markdown.
+
+You represent AffiliateMath.xyz, Rizwan Ali's professional teaching and freelance brand. Always be encouraging and precise.`;
+
+        /* ── ADVISOR / PRICING SYSTEM ── */
+        const ADVISOR_SYS = `You are a freelance income advisor for Rizwan Ali at AffiliateMath.xyz — a skilled Graphic Designer, Python Developer, FastAPI Developer, and Data Science Instructor from Pakistan who works with national and international clients.
+
+You apply the Golden Ratio (φ = 1.618) to income advice:
+- Primary income stream (61.8%): online tutoring/teaching
+- Secondary income (38.2%): freelance dev/design projects
+- Every growth step multiplies the previous by φ ≈ 1.618
+
+Give specific, actionable advice:
+- Exact dollar rates per hour, per project, per course
+- Which platforms to use (Preply, Wyzant, Upwork, Fiverr, Outschool, Tutor.com)
+- How to write proposals and profiles
+- How to scale income using the φ principle
+- Reference Rizwan's specific skills: Python, FastAPI, Graphic Design, UI/UX, Data Science
+- Be direct, practical, and encouraging
+- 200–350 words, clean paragraphs`;
+
+        let selectedLevel = 'Beginner';
+
+        function setLv(level) {
+            selectedLevel = level;
+            document.querySelectorAll('.lbtn').forEach(b => b.classList.remove('on'));
+            document.getElementById(`lv-${level.toLowerCase()}`).classList.add('on');
+        }
+
+        async function askTutor(preset) {
+            const input = document.getElementById('tutorInput');
+            const q = preset || input.value.trim();
+            if (!q) { input.focus(); return; }
+
+            const btn = document.getElementById('tutorBtn');
+            const thinking = document.getElementById('tutorThinking');
+            const text = document.getElementById('tutorText');
+
+            btn.disabled = true;
+            thinking.style.display = 'flex';
+            text.style.color = 'var(--soft)';
+            text.style.fontStyle = 'italic';
+            text.textContent = '';
+
+            const resp = await callClaude(
+                TUTOR_SYS,
+                `Student level: ${selectedLevel}.\n\nQuestion: "${q}"\n\nTeach this at the ${selectedLevel} level.`
+            );
+
+            thinking.style.display = 'none';
+            text.style.color = 'var(--ink2)';
+            text.style.fontStyle = 'normal';
+            text.textContent = resp;
+            if (!preset) input.value = '';
+            btn.disabled = false;
+        }
+
+        async function getRateAdvice() {
+            const service = document.getElementById('rateService').value;
+            const btn = document.getElementById('rateBtn');
+            const thinking = document.getElementById('acThinking');
+            const output = document.getElementById('acOutput');
+
+            btn.disabled = true;
+            thinking.classList.add('on');
+            output.style.color = 'var(--soft)';
+            output.style.fontStyle = 'italic';
+            output.textContent = '';
+
+            const resp = await callClaude(
+                ADVISOR_SYS,
+                `Rizwan Ali wants to know: what is the fair market rate for "${service}"? Give specific rates in USD, best platforms to use, and a practical first step. Apply the Golden Ratio principle.`
+            );
+
+            thinking.classList.remove('on');
+            output.style.color = 'var(--ink2)';
+            output.style.fontStyle = 'normal';
+            output.textContent = resp;
+            btn.disabled = false;
+        }
+
+        async function runCalc() {
+            const q = document.getElementById('calcInput').value.trim();
+            if (!q) { document.getElementById('calcInput').focus(); return; }
+
+            const btn = document.getElementById('calcBtn');
+            const thinking = document.getElementById('pcrThinking');
+            const output = document.getElementById('calcOutput');
+
+            btn.disabled = true;
+            thinking.classList.add('on');
+            output.style.color = 'rgba(255,255,255,0.3)';
+            output.style.fontStyle = 'italic';
+            output.textContent = '';
+
+            const resp = await callClaude(
+                ADVISOR_SYS,
+                `Rizwan's situation: "${q}"\n\nGive a specific Golden Ratio (φ = 1.618) income growth strategy. What exact steps should Rizwan take to multiply this income by φ? Give real platform names, rates, and a timeline.`
+            );
+
+            thinking.classList.remove('on');
+            output.style.color = 'rgba(255,255,255,0.72)';
+            output.style.fontStyle = 'normal';
+            output.textContent = resp;
+            btn.disabled = false;
+        }
+
+        /* ── HIRE FORM ── */
+        function submitHire() {
+            const name = document.getElementById('hf-name').value.trim();
+            const email = document.getElementById('hf-email').value.trim();
+            const service = document.getElementById('hf-service').value;
+            const msg = document.getElementById('hf-msg').value.trim();
+
+            if (!name || !email || !service || !msg) {
+                alert('Please fill in name, email, service, and your message.');
+                return;
+            }
+            document.getElementById('hireForm').style.display = 'none';
+            document.getElementById('hireSuccess').style.display = 'block';
+        }
+
+        /* ── KEYBOARD ── */
+        document.getElementById('tutorInput').addEventListener('keydown', e => { if (e.key === 'Enter') askTutor(); });
+        document.getElementById('calcInput').addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(); });
+
+        /* ── FLOAT + FADE ── */
+        window.addEventListener('scroll', () => {
+            const pill = document.getElementById('floatHire');
+            if (window.scrollY > 500) pill.classList.add('show');
+            else pill.classList.remove('show');
+        });
+
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { threshold: 0.07 });
+        document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+    </script>
+</body>
+
+</html>

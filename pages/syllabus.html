@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wisdom API · The Art of Learning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1208;
+            --parchment: #f5f0e8;
+            --aged: #e8dfc8;
+            --gold: #c8922a;
+            --gold-light: #e8b84b;
+            --rust: #8b3a1a;
+            --sage: #4a6741;
+            --deep: #0f0a04;
+            --muted: #7a6a52;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --mono: 'DM Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--parchment);
+            font-family: var(--serif);
+            color: var(--ink);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ── PAPER TEXTURE OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* ── DECORATIVE CORNER MARKS ── */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--rust), var(--gold), var(--sage), var(--gold), var(--rust));
+            z-index: 100;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 4rem 2.5rem 5rem;
+        }
+
+        /* ── HEADER ── */
+        .masthead {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--gold);
+            position: relative;
+        }
+
+        .masthead::before,
+        .masthead::after {
+            content: '✦';
+            color: var(--gold);
+            font-size: 0.8rem;
+            position: absolute;
+            bottom: -0.6rem;
+            background: var(--parchment);
+            padding: 0 0.5rem;
+        }
+
+        .masthead::before {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .masthead::after {
+            display: none;
+        }
+
+        .edition-mark {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            font-weight: 300;
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 0.4rem;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            font-weight: 300;
+            font-style: italic;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            margin-top: 0.8rem;
+        }
+
+        /* ── ORACLE CARD (AI wisdom generator) ── */
+        .oracle {
+            background: var(--ink);
+            color: var(--parchment);
+            border-radius: 3px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gold);
+        }
+
+        .oracle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(200, 146, 42, 0.12) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .oracle-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .oracle-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(200, 146, 42, 0.5), transparent);
+        }
+
+        .oracle-question {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            align-items: flex-end;
+        }
+
+        .oracle-input {
+            flex: 1;
+            background: rgba(245, 240, 232, 0.07);
+            border: 1px solid rgba(200, 146, 42, 0.3);
+            border-radius: 2px;
+            padding: 0.75rem 1rem;
+            color: var(--parchment);
+            font-family: var(--serif);
+            font-size: 1rem;
+            font-style: italic;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .oracle-input::placeholder {
+            color: rgba(245, 240, 232, 0.3);
+        }
+
+        .oracle-input:focus {
+            border-color: var(--gold);
+        }
+
+        .oracle-btn {
+            background: var(--gold);
+            color: var(--deep);
+            border: none;
+            padding: 0.75rem 1.4rem;
+            font-family: var(--serif);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .oracle-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-1px);
+        }
+
+        .oracle-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .wisdom-display {
+            min-height: 5rem;
+            position: relative;
+        }
+
+        .wisdom-text {
+            font-size: 1.25rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.75;
+            color: var(--parchment);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .wisdom-text.visible {
+            opacity: 1;
+        }
+
+        .wisdom-source {
+            margin-top: 1rem;
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            opacity: 0;
+            transition: opacity 0.6s ease 0.3s;
+        }
+
+        .wisdom-source.visible {
+            opacity: 1;
+        }
+
+        .thinking {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(245, 240, 232, 0.4);
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+
+        .thinking.active {
+            display: flex;
+        }
+
+        .thinking-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: blink 1.2s ease-in-out infinite;
+        }
+
+        .thinking-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .thinking-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ── TOPIC PILLS ── */
+        .topic-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic-pill {
+            background: transparent;
+            border: 1px solid rgba(200, 146, 42, 0.35);
+            padding: 0.3rem 0.9rem;
+            border-radius: 100px;
+            font-family: var(--serif);
+            font-size: 0.8rem;
+            color: rgba(245, 240, 232, 0.6);
+            cursor: pointer;
+            transition: all 0.18s;
+            font-style: italic;
+        }
+
+        .topic-pill:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(200, 146, 42, 0.08);
+        }
+
+        /* ── DIVIDER ── */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2.5rem 0;
+            color: var(--muted);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--aged), transparent);
+        }
+
+        .divider-glyph {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            font-family: var(--mono);
+            text-transform: uppercase;
+            font-size: 0.58rem;
+        }
+
+        /* ── WISDOM PILLARS (the 10 modules) ── */
+        .pillars {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        details.pillar {
+            border-bottom: 1px solid var(--aged);
+            overflow: hidden;
+        }
+
+        details.pillar:first-child {
+            border-top: 1px solid var(--aged);
+        }
+
+        details.pillar summary {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 2.2rem 1fr auto 1.2rem;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.1rem 0;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
+        details.pillar summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.pillar summary:hover .pillar-title {
+            color: var(--gold);
+        }
+
+        .pillar-num {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+        }
+
+        .pillar-title {
+            font-size: 1.15rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            transition: color 0.2s;
+        }
+
+        .pillar-glyph {
+            font-style: italic;
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 300;
+        }
+
+        .pillar-arrow {
+            color: var(--muted);
+            font-size: 0.65rem;
+            transition: transform 0.3s ease, color 0.2s;
+        }
+
+        details.pillar[open] .pillar-arrow {
+            transform: rotate(90deg);
+            color: var(--gold);
+        }
+
+        /* ── PILLAR BODY ── */
+        .pillar-body {
+            padding: 0 0 1.8rem 2.2rem;
+            animation: unfold 0.3s ease;
+        }
+
+        @keyframes unfold {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Aphorism (AI wisdom per module) */
+        .module-aphorism {
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--rust);
+            margin-bottom: 1.2rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--gold);
+            line-height: 1.7;
+        }
+
+        .module-aphorism-btn {
+            background: none;
+            border: none;
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            color: var(--muted);
+            cursor: pointer;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1.2rem;
+            transition: color 0.2s;
+            padding: 0;
+        }
+
+        .module-aphorism-btn:hover {
+            color: var(--gold);
+        }
+
+        /* Resource rows */
+        .res-section-label {
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.7rem;
+        }
+
+        .resources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .res {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.9rem;
+            border: 1px solid var(--aged);
+            border-radius: 1px;
+            font-family: var(--serif);
+            font-size: 0.85rem;
+            color: var(--ink);
+            text-decoration: none;
+            transition: all 0.18s;
+            background: rgba(232, 223, 200, 0.3);
+        }
+
+        .res:hover {
+            border-color: var(--gold);
+            background: rgba(200, 146, 42, 0.08);
+            color: var(--rust);
+        }
+
+        .res-tag {
+            font-family: var(--mono);
+            font-size: 0.5rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.1rem 0.35rem;
+            border-radius: 1px;
+            font-style: normal;
+        }
+
+        .tag-free {
+            background: rgba(74, 103, 65, 0.15);
+            color: var(--sage);
+        }
+
+        .tag-course {
+            background: rgba(139, 58, 26, 0.15);
+            color: var(--rust);
+        }
+
+        .tag-ref {
+            background: rgba(200, 146, 42, 0.15);
+            color: var(--gold);
+        }
+
+        .tag-book {
+            background: rgba(26, 18, 8, 0.1);
+            color: var(--muted);
+        }
+
+        .micro-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .micro {
+            font-family: var(--serif);
+            font-size: 0.78rem;
+            font-style: italic;
+            color: var(--muted);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--aged);
+            transition: color 0.15s, border-color 0.15s;
+            padding-bottom: 1px;
+        }
+
+        .micro:hover {
+            color: var(--rust);
+            border-color: var(--rust);
+        }
+
+        /* ── ROADMAP ── */
+        .roadmap-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            border: 1px solid var(--aged);
+            background: rgba(232, 223, 200, 0.25);
+            position: relative;
+        }
+
+        .roadmap-section::before {
+            content: 'The Path';
+            position: absolute;
+            top: -0.7rem;
+            left: 1.5rem;
+            background: var(--parchment);
+            padding: 0 0.6rem;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+        }
+
+        .path {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .path-node {
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .path-node.now {
+            color: var(--rust);
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .path-sep {
+            color: var(--aged);
+            font-size: 0.8rem;
+            padding: 0 0.2rem;
+        }
+
+        .roadmap-wisdom {
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.7;
+            border-top: 1px dotted var(--aged);
+            padding-top: 1rem;
+            min-height: 3.5rem;
+        }
+
+        .gen-roadmap-btn {
+            background: none;
+            border: 1px solid var(--aged);
+            padding: 0.5rem 1.2rem;
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.8rem;
+            border-radius: 1px;
+        }
+
+        .gen-roadmap-btn:hover {
+            border-color: var(--gold);
+            color: var(--rust);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            margin-top: 3.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--aged);
+            text-align: center;
+        }
+
+        .footer-ornament {
+            font-size: 1rem;
+            color: var(--gold);
+            letter-spacing: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        footer p {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ── FADE IN ── */
+        .page>* {
+            animation: rise 0.6s ease both;
+        }
+
+        .masthead {
+            animation-delay: 0.0s;
+        }
+
+        .oracle {
+            animation-delay: 0.15s;
+        }
+
+        .divider {
+            animation-delay: 0.25s;
+        }
+
+        .pillars {
+            animation-delay: 0.3s;
+        }
+
+        .roadmap-section {
+            animation-delay: 0.4s;
+        }
+
+        footer {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 2.5rem 1.4rem 4rem;
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            details.pillar summary {
+                grid-template-columns: 2rem 1fr 1rem;
+            }
+
+            .pillar-glyph {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- MASTHEAD -->
+        <header class="masthead">
+            <div class="edition-mark">Wisdom API · The Living Codex · Vol. I</div>
+            <h1>The Art of<br><em>Learning</em></h1>
+            <p class="tagline">A compendium of knowledge, wisdom & the paths between them</p>
+        </header>
+
+        <!-- ORACLE (AI-powered) -->
+        <div class="oracle">
+            <div class="oracle-label">The Oracle · Ask for wisdom on any subject</div>
+
+            <div class="topic-row">
+                <button class="topic-pill"
+                    onclick="askOracle('how to stay motivated when learning feels impossible')">on perseverance</button>
+                <button class="topic-pill"
+                    onclick="askOracle('the relationship between confusion and understanding')">on confusion</button>
+                <button class="topic-pill" onclick="askOracle('how to learn deeply, not just quickly')">on
+                    depth</button>
+                <button class="topic-pill" onclick="askOracle('the role of failure and mistakes in mastery')">on
+                    failure</button>
+                <button class="topic-pill" onclick="askOracle('how to know when you truly understand something')">on
+                    understanding</button>
+                <button class="topic-pill" onclick="askOracle('the connection between curiosity and genius')">on
+                    curiosity</button>
+            </div>
+
+            <div class="oracle-question">
+                <input class="oracle-input" id="oracleInput" type="text"
+                    placeholder="Ask the Oracle anything about learning, wisdom, or the pursuit of knowledge…" />
+                <button class="oracle-btn" id="oracleBtn" onclick="askOracle()">Consult ↗</button>
+            </div>
+
+            <div class="wisdom-display">
+                <div class="thinking" id="thinking">
+                    <span class="thinking-dot"></span>
+                    <span class="thinking-dot"></span>
+                    <span class="thinking-dot"></span>
+                    <span style="margin-left:0.3rem">contemplating</span>
+                </div>
+                <div class="wisdom-text" id="wisdomText"></div>
+                <div class="wisdom-source" id="wisdomSource"></div>
+            </div>
+        </div>
+
+        <div class="divider"><span class="divider-glyph">The Ten Pillars of Mastery</span></div>
+
+        <!-- THE TEN PILLARS -->
+        <div class="pillars">
+
+            <!-- I -->
+            <details class="pillar" open>
+                <summary>
+                    <span class="pillar-num">I</span>
+                    <span class="pillar-title">Mathematics & Statistics</span>
+                    <span class="pillar-glyph">the grammar of reality</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-1">"Mathematics is not about numbers, equations, computations,
+                        or algorithms: it is about understanding." — William Paul Thurston</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(1, 'mathematics and statistics as a path to wisdom')">✦ Generate new
+                        wisdom</button>
+                    <div class="res-section-label">Foundations</div>
+                    <div class="resources">
+                        <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank" class="res">Linear
+                            Algebra <span class="res-tag tag-free">free</span></a>
+                        <a href="https://www.khanacademy.org/math/statistics-probability" target="_blank"
+                            class="res">Probability & Stats <span class="res-tag tag-free">free</span></a>
+                        <a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/" target="_blank"
+                            class="res">MIT 18.06 <span class="res-tag tag-free">free</span></a>
+                        <a href="https://seeing-theory.brown.edu/" target="_blank" class="res">Seeing Theory <span
+                                class="res-tag tag-free">free</span></a>
+                        <a href="https://www.coursera.org/learn/machine-learning-math" target="_blank" class="res">Math
+                            for ML <span class="res-tag tag-course">course</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://www.3blue1brown.com/topics/linear-algebra" target="_blank"
+                            class="micro">3Blue1Brown Visual Series</a>
+                        <a href="https://www.statlearning.com/" target="_blank" class="micro">ISLR (Free Book)</a>
+                        <a href="https://betterexplained.com/" target="_blank" class="micro">Better Explained</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- II -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">II</span>
+                    <span class="pillar-title">Python & SQL</span>
+                    <span class="pillar-glyph">the tongue of machines</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-2">"Code is like poetry; the best code reads like prose." —
+                        Write to be read, then to run.</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(2, 'learning to code and speak to machines with Python and SQL')">✦
+                        Generate new wisdom</button>
+                    <div class="res-section-label">Language</div>
+                    <div class="resources">
+                        <a href="https://docs.python.org/3/tutorial/" target="_blank" class="res">Python Tutorial <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://numpy.org/doc/stable/" target="_blank" class="res">NumPy <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://pandas.pydata.org/docs/" target="_blank" class="res">Pandas <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://www.postgresql.org/docs/current/tutorial.html" target="_blank"
+                            class="res">PostgreSQL <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://sqlbolt.com/" target="_blank" class="res">SQLBolt <span
+                                class="res-tag tag-free">free</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://realpython.com/" target="_blank" class="micro">Real Python</a>
+                        <a href="https://sqlite.org/docs.html" target="_blank" class="micro">SQLite Docs</a>
+                        <a href="https://exercism.org/tracks/python" target="_blank" class="micro">Exercism ·
+                            Practice</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- III -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">III</span>
+                    <span class="pillar-title">Excel & Data Cleaning</span>
+                    <span class="pillar-glyph">order from chaos</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-3">"Garbage in, garbage out. Cleanliness in data is not a
+                        luxury — it is the foundation of all truth."</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(3, 'data cleaning and finding order in messy information')">✦ Generate
+                        new wisdom</button>
+                    <div class="res-section-label">Tools</div>
+                    <div class="resources">
+                        <a href="https://support.microsoft.com/en-us/excel" target="_blank" class="res">Microsoft Excel
+                            <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://exceljet.net/" target="_blank" class="res">Exceljet <span
+                                class="res-tag tag-free">free</span></a>
+                        <a href="https://www.contextures.com/" target="_blank" class="res">Pivot Tables Guide <span
+                                class="res-tag tag-free">free</span></a>
+                        <a href="https://openrefine.org/docs" target="_blank" class="res">OpenRefine <span
+                                class="res-tag tag-free">free</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://chandoo.org/wp/" target="_blank" class="micro">Chandoo · Excel Mastery</a>
+                        <a href="https://www.ablebits.com/office-addins-blog/" target="_blank" class="micro">AbleBits
+                            Blog</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- IV -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">IV</span>
+                    <span class="pillar-title">Data Analysis & Visualization</span>
+                    <span class="pillar-glyph">making the invisible visible</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-4">"The greatest value of a picture is when it forces us to
+                        notice what we never expected to see." — John Tukey</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(4, 'the art of data visualization and seeing patterns in information')">✦
+                        Generate new wisdom</button>
+                    <div class="res-section-label">Libraries & Platforms</div>
+                    <div class="resources">
+                        <a href="https://matplotlib.org/stable/tutorials/index.html" target="_blank"
+                            class="res">Matplotlib <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://seaborn.pydata.org/tutorial.html" target="_blank" class="res">Seaborn <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://plotly.com/python/plotly-fundamentals/" target="_blank" class="res">Plotly
+                            <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://learn.microsoft.com/en-us/power-bi/fundamentals/" target="_blank"
+                            class="res">Power BI <span class="res-tag tag-free">free</span></a>
+                        <a href="https://help.tableau.com/current/pro/desktop/en-us/default.htm" target="_blank"
+                            class="res">Tableau <span class="res-tag tag-ref">ref</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://www.data-to-viz.com/" target="_blank" class="micro">From Data to Viz</a>
+                        <a href="https://altair-viz.github.io/" target="_blank" class="micro">Altair · Declarative</a>
+                        <a href="https://d3js.org/" target="_blank" class="micro">D3.js · Advanced</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- V -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">V</span>
+                    <span class="pillar-title">Machine Learning</span>
+                    <span class="pillar-glyph">teaching machines to see</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-5">"A learning machine, like a learning person, must first
+                        unlearn its certainties before it can grow." </div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(5, 'machine learning and the philosophy of teaching machines to think')">✦
+                        Generate new wisdom</button>
+                    <div class="res-section-label">Courses & Libraries</div>
+                    <div class="resources">
+                        <a href="https://scikit-learn.org/stable/user_guide.html" target="_blank"
+                            class="res">Scikit-Learn <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://www.kaggle.com/learn" target="_blank" class="res">Kaggle Learn <span
+                                class="res-tag tag-free">free</span></a>
+                        <a href="https://developers.google.com/machine-learning/crash-course" target="_blank"
+                            class="res">Google ML Crash Course <span class="res-tag tag-free">free</span></a>
+                        <a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank"
+                            class="res">Andrew Ng · ML <span class="res-tag tag-course">course</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://mlcourse.ai/book/index.html" target="_blank" class="micro">mlcourse.ai
+                            (Free)</a>
+                        <a href="https://www.statlearning.com/" target="_blank" class="micro">ISLR · Statistical
+                            Learning</a>
+                        <a href="https://explained.ai/" target="_blank" class="micro">Explained.ai</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- VI -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">VI</span>
+                    <span class="pillar-title">Deep Learning</span>
+                    <span class="pillar-glyph">layers within layers</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-6">"The neural network, like the human mind, finds meaning not
+                        in any single node, but in the space between connections."</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(6, 'deep learning and the mystery of emergent intelligence')">✦
+                        Generate new wisdom</button>
+                    <div class="res-section-label">Frameworks & Texts</div>
+                    <div class="resources">
+                        <a href="https://www.tensorflow.org/learn" target="_blank" class="res">TensorFlow <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://pytorch.org/tutorials/" target="_blank" class="res">PyTorch <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://keras.io/guides/" target="_blank" class="res">Keras <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://d2l.ai/" target="_blank" class="res">Dive into Deep Learning <span
+                                class="res-tag tag-book">book</span></a>
+                        <a href="https://course.fast.ai/" target="_blank" class="res">fast.ai <span
+                                class="res-tag tag-free">free</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://cs231n.github.io/" target="_blank" class="micro">Stanford CS231n</a>
+                        <a href="https://cs224n.stanford.edu/" target="_blank" class="micro">Stanford CS224n · NLP</a>
+                        <a href="https://uvadlc-notebooks.readthedocs.io/" target="_blank" class="micro">UvA Deep
+                            Learning</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- VII -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">VII</span>
+                    <span class="pillar-title">Generative AI</span>
+                    <span class="pillar-glyph">creation as understanding</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-7">"To generate is to understand. The model that can create has
+                        learned something of the world's hidden structure."</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(7, 'generative AI and what it means for machines to create')">✦
+                        Generate new wisdom</button>
+                    <div class="res-section-label">APIs & Tooling</div>
+                    <div class="resources">
+                        <a href="https://platform.openai.com/docs/overview" target="_blank" class="res">OpenAI API <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://docs.anthropic.com/" target="_blank" class="res">Anthropic / Claude <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://python.langchain.com/docs/introduction/" target="_blank" class="res">LangChain
+                            <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://huggingface.co/learn/nlp-course" target="_blank" class="res">Hugging Face NLP
+                            <span class="res-tag tag-free">free</span></a>
+                        <a href="https://modelcontextprotocol.io/docs" target="_blank" class="res">MCP · Anthropic <span
+                                class="res-tag tag-ref">ref</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://www.promptingguide.ai/" target="_blank" class="micro">Prompting Guide</a>
+                        <a href="https://docs.llamaindex.ai/" target="_blank" class="micro">LlamaIndex</a>
+                        <a href="https://www.pinecone.io/learn/" target="_blank" class="micro">Pinecone · Vectors</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- VIII -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">VIII</span>
+                    <span class="pillar-title">Agentic AI</span>
+                    <span class="pillar-glyph">the mind that acts</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-8">"An agent without wisdom is merely a fast fool. Intelligence
+                        without judgment is the oldest danger in any form."</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(8, 'agentic AI systems that act and decide in the world')">✦ Generate
+                        new wisdom</button>
+                    <div class="res-section-label">Frameworks</div>
+                    <div class="resources">
+                        <a href="https://python.langchain.com/docs/how_to/#agents" target="_blank" class="res">LangChain
+                            Agents <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://platform.openai.com/docs/guides/function-calling" target="_blank"
+                            class="res">Function Calling <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://docs.crewai.com/" target="_blank" class="res">CrewAI <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://microsoft.github.io/autogen/" target="_blank" class="res">AutoGen <span
+                                class="res-tag tag-free">free</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://docs.anthropic.com/en/docs/build-with-claude/agents" target="_blank"
+                            class="micro">Claude Agents Guide</a>
+                        <a href="https://arxiv.org/abs/2309.07864" target="_blank" class="micro">ReAct Paper</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- IX -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">IX</span>
+                    <span class="pillar-title">MLOps & Cloud</span>
+                    <span class="pillar-glyph">ideas made permanent</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-9">"A model that lives only in a notebook is a thought that was
+                        never spoken. MLOps is the act of speaking."</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(9, 'MLOps, deployment and bringing machine learning to the real world')">✦
+                        Generate new wisdom</button>
+                    <div class="res-section-label">Infrastructure</div>
+                    <div class="resources">
+                        <a href="https://mlflow.org/docs/latest/index.html" target="_blank" class="res">MLflow <span
+                                class="res-tag tag-free">free</span></a>
+                        <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html" target="_blank"
+                            class="res">AWS SageMaker <span class="res-tag tag-ref">ref</span></a>
+                        <a href="https://cloud.google.com/vertex-ai/docs" target="_blank" class="res">Vertex AI <span
+                                class="res-tag tag-ref">ref</span></a>
+                        <a href="https://azure.microsoft.com/en-us/products/machine-learning" target="_blank"
+                            class="res">Azure ML <span class="res-tag tag-ref">ref</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://dvc.org/doc" target="_blank" class="micro">DVC · Data Versioning</a>
+                        <a href="https://docs.docker.com/" target="_blank" class="micro">Docker</a>
+                        <a href="https://www.prefect.io/opensource" target="_blank" class="micro">Prefect ·
+                            Pipelines</a>
+                    </div>
+                </div>
+            </details>
+
+            <!-- X -->
+            <details class="pillar">
+                <summary>
+                    <span class="pillar-num">X</span>
+                    <span class="pillar-title">Business & Storytelling</span>
+                    <span class="pillar-glyph">truth made persuasive</span>
+                    <span class="pillar-arrow">›</span>
+                </summary>
+                <div class="pillar-body">
+                    <div class="module-aphorism" id="aph-10">"Data without narrative is noise. Numbers without humanity
+                        forget their purpose. The analyst who cannot tell a story cannot save anyone."</div>
+                    <button class="module-aphorism-btn"
+                        onclick="generateAphorism(10, 'storytelling with data and communicating insight to humans')">✦
+                        Generate new wisdom</button>
+                    <div class="res-section-label">Communication & Strategy</div>
+                    <div class="resources">
+                        <a href="https://www.storytellingwithdata.com/" target="_blank" class="res">Storytelling with
+                            Data <span class="res-tag tag-book">book</span></a>
+                        <a href="https://www.coursera.org/learn/analytics-excel" target="_blank" class="res">Business
+                            Analytics <span class="res-tag tag-course">course</span></a>
+                        <a href="https://www.khanacademy.org/economics-finance-domain/core-finance" target="_blank"
+                            class="res">Finance Basics <span class="res-tag tag-free">free</span></a>
+                    </div>
+                    <div class="micro-links">
+                        <a href="https://hbr.org/topic/data" target="_blank" class="micro">HBR Data Articles</a>
+                        <a href="https://mode.com/sql-tutorial/" target="_blank" class="micro">Mode SQL Tutorial</a>
+                    </div>
+                </div>
+            </details>
+
+        </div><!-- /pillars -->
+
+        <!-- ROADMAP -->
+        <div class="roadmap-section">
+            <div class="path">
+                <span class="path-node now">Mathematics</span>
+                <span class="path-sep">·</span>
+                <span class="path-node">Python</span>
+                <span class="path-sep">·</span>
+                <span class="path-node">Data Cleaning</span>
+                <span class="path-sep">·</span>
+                <span class="path-node">Analysis</span>
+                <span class="path-sep">·</span>
+                <span class="path-node">Machine Learning</span>
+                <span class="path-sep">·</span>
+                <span class="path-node">Deep Learning</span>
+                <span class="path-sep">·</span>
+                <span class="path-node">Generative AI</span>
+                <span class="path-sep">·</span>
+                <span class="path-node now">Mastery</span>
+            </div>
+            <div class="roadmap-wisdom" id="roadmapWisdom">
+                <em>Click below to receive wisdom on the learner's path…</em>
+            </div>
+            <button class="gen-roadmap-btn" onclick="generateRoadmapWisdom()">✦ Receive wisdom on the journey</button>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-ornament">✦ ✦ ✦</div>
+            <p>Wisdom API · The Living Codex · Powered by Claude · All paths lead to understanding</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const API_URL = "https://api.anthropic.com/v1/messages";
+
+        async function callClaude(prompt) {
+            const res = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    model: "claude-sonnet-4-20250514",
+                    max_tokens: 1000,
+                    system: `You are the Wisdom Oracle — a profound, poetic voice that speaks about learning, knowledge, and the human pursuit of mastery. 
+Your tone is: literary, philosophical, warm, occasionally aphoristic. You draw on philosophers, scientists, artists, and thinkers throughout history. 
+You speak in 2-4 beautifully crafted sentences. Never be generic or clichéd. Be genuinely insightful and surprising. 
+You may occasionally invent a plausible-sounding aphorism and attribute it to a real historical figure (clearly formatted as a quote), or speak in your own voice.
+Never use bullet points. Speak as a wise elder who has learned deeply.`,
+                    messages: [{ role: "user", content: prompt }]
+                })
+            });
+            const data = await res.json();
+            return data.content.map(b => b.text || "").join("");
+        }
+
+        async function askOracle(preset) {
+            const input = document.getElementById("oracleInput");
+            const question = preset || input.value.trim();
+            if (!question) { input.focus(); return; }
+
+            const btn = document.getElementById("oracleBtn");
+            const thinking = document.getElementById("thinking");
+            const wisdomText = document.getElementById("wisdomText");
+            const wisdomSource = document.getElementById("wisdomSource");
+
+            btn.disabled = true;
+            wisdomText.classList.remove("visible");
+            wisdomSource.classList.remove("visible");
+            thinking.classList.add("active");
+
+            try {
+                const wisdom = await callClaude(`A seeker asks the Oracle: "${question}". Respond with profound wisdom about this question as it relates to learning, knowledge, and the human journey of mastery.`);
+                thinking.classList.remove("active");
+                wisdomText.textContent = wisdom;
+                wisdomSource.textContent = `— The Oracle, in response to: "${question.slice(0, 60)}${question.length > 60 ? '…' : ''}"`;
+                wisdomText.classList.add("visible");
+                wisdomSource.classList.add("visible");
+                if (!preset) input.value = "";
+            } catch (e) {
+                thinking.classList.remove("active");
+                wisdomText.textContent = "The Oracle is momentarily silent. Even wisdom requires time to gather itself.";
+                wisdomText.classList.add("visible");
+            }
+            btn.disabled = false;
+        }
+
+        async function generateAphorism(num, topic) {
+            const el = document.getElementById(`aph-${num}`);
+            const btn = el.nextElementSibling;
+            btn.textContent = "✦ contemplating…";
+            btn.disabled = true;
+            el.style.opacity = "0.4";
+            try {
+                const wisdom = await callClaude(`Generate a single profound aphorism or short meditation (2-3 sentences max) about: ${topic}. It should feel timeless, surprising, and genuinely wise. You may quote a real thinker or speak in your own voice as the Oracle.`);
+                el.textContent = wisdom;
+                el.style.opacity = "1";
+            } catch (e) {
+                el.textContent = "Some wisdom cannot be summoned on demand — it arrives in its own time.";
+                el.style.opacity = "1";
+            }
+            btn.textContent = "✦ Generate new wisdom";
+            btn.disabled = false;
+        }
+
+        async function generateRoadmapWisdom() {
+            const el = document.getElementById("roadmapWisdom");
+            const btn = el.nextElementSibling;
+            btn.textContent = "✦ seeking the path…";
+            btn.disabled = true;
+            el.innerHTML = "<em style='opacity:0.5'>The Oracle meditates on your journey…</em>";
+            try {
+                const wisdom = await callClaude(`Speak wisdom about the long journey of learning data science — from mathematics through machine learning to mastery. What should a learner know about patience, the difficult middle, the moments of breakthrough, and the transformation that comes from sustained pursuit of knowledge? 3-5 beautiful sentences.`);
+                el.innerHTML = `<em>${wisdom}</em>`;
+            } catch (e) {
+                el.innerHTML = "<em>Every master was once a beginner who refused to quit.</em>";
+            }
+            btn.textContent = "✦ Receive wisdom on the journey";
+            btn.disabled = false;
+        }
+
+        // Highlight parent on link click
+        document.querySelectorAll('.res, .micro').forEach(el => {
+            el.addEventListener('click', () => {
+                const p = el.closest('details');
+                if (!p) return;
+                p.style.borderBottomColor = 'var(--gold)';
+                setTimeout(() => p.style.borderBottomColor = '', 800);
+            });
+        });
+
+        // Enter key for oracle
+        document.getElementById('oracleInput').addEventListener('keydown', e => {
+            if (e.key === 'Enter') askOracle();
+        });
+    </script>
+</body>
+
+</html>
